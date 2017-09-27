@@ -95,6 +95,11 @@ thread_ping(void *arg)
 static void
 ping(void)
 {
+    
+    char token[] = config_get_config()->gw_id;
+    int len = strlen(token);
+    token[len-1] = '\0';
+
     char request[MAX_BUF];
     FILE *fh;
     int sockfd;
@@ -163,7 +168,7 @@ ping(void)
              "\r\n",
              auth_server->authserv_path,
              auth_server->authserv_ping_script_path_fragment,
-             config_get_config()->gw_id,
+             token,
              sys_uptime,
              sys_memfree,
              sys_load,
